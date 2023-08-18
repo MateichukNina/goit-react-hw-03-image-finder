@@ -39,8 +39,8 @@ handleKeydown = e =>{
  }))
 
 render(){
-  const { isModalOpen } = this.state;
-   const { webformatURL, largeImageURL } = this.props.item;
+  const { showModal } = this.state;
+   const { webformatURL, tags, largeImageURL } = this.props.item;
 
   return createPortal (
     
@@ -49,12 +49,13 @@ render(){
           src={webformatURL}
           load="lazy"
           onClick={this.toggleModal}
+          alt={tags}
         />
         <div
           isOpen={isModalOpen}
           onRequestClose={this.toggleModal}
         >
-          <img src={largeImageURL} />
+          <img src={largeImageURL} alt={tags}/>
         </div></div>
     </div>,
     modalRoot,
