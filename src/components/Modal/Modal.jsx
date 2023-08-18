@@ -33,10 +33,11 @@ handleKeydown = e =>{
     this.props.onClose()
   }
  }
-
- toggleModal = () => this.setState(({showModal}) => ({
-  showModal: !showModal
- }))
+ toggleModal = () => {
+  this.setState(prevState => ({
+    showModal: !prevState.showModal
+  }));
+};
 
 render(){
   const { showModal } = this.state;
@@ -52,7 +53,7 @@ render(){
           alt={tags}
         />
         <div
-          isOpen={isModalOpen}
+           isOpen={showModal}
           onRequestClose={this.toggleModal}
         >
           <img src={largeImageURL} alt={tags}/>
