@@ -1,39 +1,12 @@
 import { Component } from 'react';
 import { fetchImage } from './api';
 import { Searchbar } from './Searchbar/Searchbar';
-// import { Container } from "react-bootstrap";
-//  import { Modal } from "./Modal/Modal";
+import { ImageGallery } from './ImageGallery/ImageGallery';
+import { Toaster, toast } from 'react-hot-toast';
+import { Button } from './Button/Button';
 
 
 
-// export class App extends Component{
-//   state = {
-//     todos: [],
-//     filter: '',
-//     showModal: false,
-//   }
-
-//   toggleModal = () => {
-//     this.setState(({ showModal }) => ({
-//       showModal: !showModal
-//     }));
-//   };
-
-//   render(){
-
-//     const { showModal} = this.state;
-
-//     return(
-//       <Container>
-//         <button type="button" onClick={this.toggleModal}>Open modal</button>
-//         {showModal && <Modal onClose={this.toggleModal}>
-//         <img src="" alt="" />
-//           <button type="button" onClick={this.toggleModal}>Close modal</button>
-//           </Modal>}
-//       </Container>
-//     )
-//   }
-// }
 
 export class App extends Component {
   state = {
@@ -42,46 +15,46 @@ export class App extends Component {
     page: 1,
   };
 
+  componentDidMount() {}
 
-componentDidMount(){
-  
-}
-
-
-
-componentDidUpdate(prevProps, prevState){
-  if(prevState.query !== this.state.query || prevState.page !== this.state.page){
-    const images = fetchImage();
-    this.setState({images})
-    
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.query !== this.state.query || prevState.page !== this.state.page) {
+      const images = fetchImage(this.state.query, this.state.page);
+      this.setState({ images });
+    }
   }
-}
 
   changeQuery = newQuery => {
     this.setState({
       query: `${Date.now()}/${newQuery}`,
       images: [],
-      page: 1
+      page: 1,
     });
   };
 
-
   handleSubmit = event => {
     event.preventDefault();
-     this.changeQuery(event.target.elements.query.value);
-    
-    };
- 
-    handleLoadMore = () =>{
-      this.setState(prevState => ({page: prevState.page + 1}))
+    if (event.target.elements.query.value.trim() === '') {
+      toast.error('Please enter a valid query');
+      return;
     }
+    this.changeQuery(event.target.elements.query.value);
+    event.target.reset();
+  };
+
+  handleLoadMore = () => {
+    this.setState(prevState => ({ page: prevState.page + 1 }));
+  };
 
   render() {
     return (
       <div>
-       <Searchbar onSubmit={this.handleSubmit}/>
-        <div>Gallrey</div>
-        <button type='button' onClick={this.handleLoadMore}>Load more</button>
+        <Searchbar onSubmit={this.handleSubmit} />
+        <ImageGallery/>
+        <Button type='button' onClick={this.handleLoadMore}>
+          Load more
+        </Button>
+        <Toaster/>
       </div>
     );
   }

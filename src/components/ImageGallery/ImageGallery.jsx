@@ -1,14 +1,17 @@
-
+import { ModalImage } from '../Modal/Modal'
 
 
 export const ImageGallery = ({items}) =>{
   return(
-    <ul className="gallery">
+    <div>
+      <ul className="gallery">
     {items.map((item) => (
       <li key={item.id}>
-        <img src={item.url}  />
+        <ModalImage item={item}  />
       </li>
     ))}
   </ul>
+    </div>
+    
   )
 }

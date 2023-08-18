@@ -1,17 +1,21 @@
 import { Component } from "react";
  import { createPortal } from "react-dom";
+//  import Modal from 'react-modal';
 
 const modalRoot = document.querySelector('#modal-root');
 
-export class Modal extends Component{
-componentDidMount(){
-  console.log('Modal componentDidMount')
-   window.addEventListener('keydown', this.handleKeydown)
+export class ModalImage extends Component{
+state = {
+  showModal: false,
 }
 
 
+componentDidMount(){
+  
+   window.addEventListener('keydown', this.handleKeydown)
+}
 componentWillUnmount(){
-  console.log('Modal ')
+ 
   window.removeEventListener('keydown', this.handleKeydown)
  
 }
@@ -19,7 +23,7 @@ componentWillUnmount(){
 
 handleKeydown = e =>{
   if(e.code === 'Escape'){
-    console.log('push esc')
+    
      this.props.onClose()
    }
  }
@@ -30,10 +34,28 @@ handleKeydown = e =>{
   }
  }
 
+ toggleModal = () => this.setState(({showModal}) => ({
+  showModal: !showModal
+ }))
+
 render(){
+  const { isModalOpen } = this.state;
+   const { webformatURL, largeImageURL } = this.props.item;
+
   return createPortal (
+    
     <div className="Overlay" onClick={this.handleBackdropClick}>
-      <div className="Modal">{this.props.children}</div>
+      <div className="Modal"> <img
+          src={webformatURL}
+          load="lazy"
+          onClick={this.toggleModal}
+        />
+        <div
+          isOpen={isModalOpen}
+          onRequestClose={this.toggleModal}
+        >
+          <img src={largeImageURL} />
+        </div></div>
     </div>,
     modalRoot,
   )
