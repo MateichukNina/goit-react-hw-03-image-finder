@@ -1,7 +1,10 @@
+import {LoadBtn} from './Button.styled'
+
+
 export const Button = ({ onClick, children }) => {
   return (
     <>
-      <button onClick={onClick}>{children}</button>
+      <LoadBtn onClick={onClick}>{children}</LoadBtn>
     </>
   );
 };

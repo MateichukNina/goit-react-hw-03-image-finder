@@ -1,12 +1,13 @@
 import React from 'react';
+import { Form, FormButton,Input } from './Searchbar.styled';
 
 
 export const Searchbar = ({ onSubmit }) => {
   console.log('Form submitted');
   return (
     <div>
-      <form onSubmit={onSubmit}>
-        <input
+      <Form onSubmit={onSubmit}>
+        <Input
           className="input"
           name="query"
           type="text"
@@ -15,8 +16,8 @@ export const Searchbar = ({ onSubmit }) => {
           placeholder="Search images and photos"
         />
 
-        <button type="submit">Submit</button>
-      </form>
+        <FormButton type="submit">Search</FormButton>
+      </Form>
     </div>
   );
 };

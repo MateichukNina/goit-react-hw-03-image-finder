@@ -1,9 +1,10 @@
 import { Component } from 'react';
-import { fetchImage } from './api';
-import { Searchbar } from './Searchbar/Searchbar';
-import { ImageGallery } from './ImageGallery/ImageGallery';
+import { fetchImage } from '../api';
+import { Searchbar } from '../Searchbar/Searchbar';
+import { ImageGallery } from '../ImageGallery/ImageGallery';
  import { toast } from 'react-hot-toast';
-import { Button } from './Button/Button';
+import { Button } from '../Button/Button';
+import { Wrapper } from './App.styled';
 
 export class App extends Component {
   state = {
@@ -57,14 +58,14 @@ export class App extends Component {
     const { images } = this.state;
     
     return (
-      <div>
+      <Wrapper>
         <Searchbar onSubmit={this.handleSubmit} />
         <ImageGallery items={images} />
         <Button type='button' onClick={this.handleLoadMore}>
           Load more
         </Button>
        
-      </div>
+      </Wrapper>
     );
   }
 }

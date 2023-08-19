@@ -1,8 +1,28 @@
 import { Component } from "react";
  import { createPortal } from "react-dom";
+import {ImageItem} from './Modal.styled'
   import Modal from 'react-modal';
 
 const modalRoot = document.querySelector('#modal-root');
+
+const customStyles = {
+  content: {
+    top: '52%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    padding: '0',
+    border: 'none',
+    maxWidth: 'calc (100vw - 48px)',
+    maxHeight: 'calc(100vh - 24px)',
+    overflow: 'none',
+  },
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+  },
+};
 
 export class ModalImage extends Component{
 state = {
@@ -49,7 +69,7 @@ render(){
 
   return createPortal (
     
-    <div>
+    <ImageItem>
     <img
       src={webformatURL}
       alt={tags}
@@ -58,12 +78,13 @@ render(){
     />
     <Modal
       isOpen={modalOpen}
+      style={customStyles}
       onRequestClose={this.closeModal}
       contentLabel="Example Modal"
     >
       <img src={largeImageURL} alt={tags} />
     </Modal>
-  </div>
+  </ImageItem>
     ,
     modalRoot,
   )
