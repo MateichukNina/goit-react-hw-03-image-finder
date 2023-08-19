@@ -1,12 +1,12 @@
 import { Component } from "react";
  import { createPortal } from "react-dom";
-//  import Modal from 'react-modal';
+  import Modal from 'react-modal';
 
 const modalRoot = document.querySelector('#modal-root');
 
 export class ModalImage extends Component{
 state = {
-  showModal: false,
+  modalOpen: false,
 }
 
 
@@ -21,44 +21,50 @@ componentWillUnmount(){
 }
 
 
-handleKeydown = e =>{
-  if(e.code === 'Escape'){
+// handleKeydown = e =>{
+//   if(e.code === 'Escape'){
     
-     this.props.onClose()
-   }
- }
+//      this.props.onClose()
+//    }
+//  }
 
- handleBackdropClick = evt =>{
-  if(evt.target === evt.currentTarget){
-    this.props.onClose()
-  }
- }
- toggleModal = () => {
-  this.setState(prevState => ({
-    showModal: !prevState.showModal
-  }));
-};
+//  handleBackdropClick = evt =>{
+//   if(evt.target === evt.currentTarget){
+//     this.props.onClose()
+//   }
+//  }
+//  toggleModal = () => {
+//   this.setState(prevState => ({
+//     showModal: !prevState.showModal
+//   }));
+// };
+
+
+openModal = () => this.setState({ modalOpen: true });
+closeModal = () => this.setState({ modalOpen: false });
 
 render(){
-  const { showModal } = this.state;
-   const { webformatURL, tags, largeImageURL } = this.props.item;
+  const { modalOpen } = this.state;
+   const { tags, largeImageURL, webformatURL } = this.props.item;
 
   return createPortal (
     
-    <div className="Overlay" onClick={this.handleBackdropClick}>
-      <div className="Modal"> <img
-          src={webformatURL}
-          load="lazy"
-          onClick={this.toggleModal}
-          alt={tags}
-        />
-        <div
-           isOpen={showModal}
-          onRequestClose={this.toggleModal}
-        >
-          <img src={largeImageURL} alt={tags}/>
-        </div></div>
-    </div>,
+    <div>
+    <img
+      src={webformatURL}
+      alt={tags}
+      load="lazy"
+      onClick={this.openModal}
+    />
+    <Modal
+      isOpen={modalOpen}
+      onRequestClose={this.closeModal}
+      contentLabel="Example Modal"
+    >
+      <img src={largeImageURL} alt={tags} />
+    </Modal>
+  </div>
+    ,
     modalRoot,
   )
 }

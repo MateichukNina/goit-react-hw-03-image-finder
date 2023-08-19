@@ -2,11 +2,8 @@ import { Component } from 'react';
 import { fetchImage } from './api';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
-import { Toaster, toast } from 'react-hot-toast';
+ import { toast } from 'react-hot-toast';
 import { Button } from './Button/Button';
-
-
-
 
 export class App extends Component {
   state = {
@@ -19,10 +16,19 @@ export class App extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.query !== this.state.query || prevState.page !== this.state.page) {
-      const images = fetchImage(this.state.query, this.state.page);
-      this.setState({ images });
+      this.fetchAndSetImages(this.state.query, this.state.page);
     }
   }
+
+  fetchAndSetImages = async (query, page) => {
+    console.log('Fetch')
+    try {
+      const images = await fetchImage(query, page);
+      this.setState({ images });
+    } catch (error) {
+      toast.error('Error fetching images:', error);
+    }
+  };
 
   changeQuery = newQuery => {
     this.setState({
@@ -33,13 +39,14 @@ export class App extends Component {
   };
 
   handleSubmit = event => {
+    console.log('submit')
     event.preventDefault();
-    if (event.target.elements.query.value.trim() === '') {
-      toast.error('Please enter a valid query');
-      return;
-    }
+     if (event.target.elements.query.value === '') {
+     toast.error('Please enter a valid query');
+       return;
+     }
     this.changeQuery(event.target.elements.query.value);
-    event.target.reset();
+     event.target.reset();
   };
 
   handleLoadMore = () => {
@@ -47,14 +54,16 @@ export class App extends Component {
   };
 
   render() {
+    const { images } = this.state;
+    
     return (
       <div>
         <Searchbar onSubmit={this.handleSubmit} />
-        <ImageGallery/>
+        <ImageGallery items={images} />
         <Button type='button' onClick={this.handleLoadMore}>
           Load more
         </Button>
-        <Toaster/>
+       
       </div>
     );
   }

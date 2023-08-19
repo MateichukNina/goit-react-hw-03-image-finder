@@ -1,4 +1,8 @@
+import React from 'react';
+
+
 export const Searchbar = ({ onSubmit }) => {
+  console.log('Form submitted');
   return (
     <div>
       <form onSubmit={onSubmit}>
@@ -6,7 +10,7 @@ export const Searchbar = ({ onSubmit }) => {
           className="input"
           name="query"
           type="text"
-          // autocomplete="off"
+          // autoсomplete="off"
           // autofocus
           placeholder="Search images and photos"
         />
