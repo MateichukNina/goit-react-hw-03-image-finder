@@ -1,19 +1,20 @@
 import styled from 'styled-components';
 
 export const Gallery = styled.ul`
-  display: flex;
+  display: grid;
   max-width: calc(100vw - 48px);
-  // gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-gap: 16px;
   margin-top: 0;
   margin-bottom: 0;
   padding: 0;
- 
+  list-style: none;
   margin-left: auto;
   margin-right: auto;
 `;
 
 export const Image = styled.li`
-flex-basis: calc(33.33% - 10px);
-margin: 5px; /* 
-box-sizing: border-box;
-`
+  border-radius: 2px;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+`;

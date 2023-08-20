@@ -1,25 +1,16 @@
-import { ModalImage } from '../Modal/Modal'
-import { Gallery, Image } from './ImageGallery.styled'
+import React from 'react';
+import {ImageGalleryItem} from '../ImageGalleryItem/ImageGalleryItem';
+import { Gallery } from './ImageGallery.styled';
 
 
+export const ImageGallery = ({ images, onImageClick }) => (
+  <Gallery className="gallery">
+    {images.map(image => (
+      <ImageGalleryItem key={image.id} image={image} onClick={() => onImageClick(image)} />
+    ))}
+  </Gallery>
+);
 
-
-export const ImageGallery = ({ items }) => {
-  return (
-    <div>
-      <Gallery>
-        {items.map((item) => {
-          console.log("Item:", item); 
-          return (
-            <Image key={item.id}>
-              <ModalImage item={item} />
-            </Image>
-          );
-        })}
-      </Gallery>
-    </div>
-  );
-};
 
 
 

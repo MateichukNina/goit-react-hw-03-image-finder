@@ -5,6 +5,7 @@ import { ImageGallery } from '../ImageGallery/ImageGallery';
  import { toast } from 'react-hot-toast';
 import { Button } from '../Button/Button';
 import { Wrapper } from './App.styled';
+import { GlobalStyle } from 'components/GlobalStyle';
 
 export class App extends Component {
   state = {
@@ -58,16 +59,16 @@ export class App extends Component {
   };
 
   render() {
-    const { images } = this.state;
+    // const { images } = this.state;
     
     return (
       <Wrapper>
         <Searchbar onSubmit={this.handleSubmit} />
-        <ImageGallery items={images} />
+        <ImageGallery images={this.state.images} />
         <Button type='button' onClick={this.handleLoadMore}>
           Load more
         </Button>
-       
+       <GlobalStyle/>
       </Wrapper>
     );
   }
