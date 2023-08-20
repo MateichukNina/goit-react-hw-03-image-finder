@@ -1,5 +1,5 @@
 import { ModalImage } from '../Modal/Modal'
-import { Gallery } from './ImageGallery.styled'
+import { Gallery, Image } from './ImageGallery.styled'
 
 
 
@@ -11,9 +11,9 @@ export const ImageGallery = ({ items }) => {
         {items.map((item) => {
           console.log("Item:", item); 
           return (
-            <li key={item.id}>
+            <Image key={item.id}>
               <ModalImage item={item} />
-            </li>
+            </Image>
           );
         })}
       </Gallery>

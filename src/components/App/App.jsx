@@ -13,48 +13,23 @@ export class App extends Component {
     page: 1,
   };
 
-  componentDidMount() {}
+ 
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.query !== this.state.query || prevState.page !== this.state.page) {
-      this.fetchAndSetImages(this.state.query, this.state.page);
-    }
-  }
+   async componentDidUpdate(prevPrpos, prevState) {
+    if (
+       prevState.query !== this.state.query ||
+      prevState.page !== this.state.page
+     ) {
+      const images = await fetchImage(
+         this.state.query.slice(this.state.query.indexOf('/') + 1),
+         this.state.page
+       );
 
-   fetchAndSetImages = async (query, page) => {
-    console.log(query,page)
-    try {
-       const images = await fetchImage(query, page);
-      this.setState({images});
-      console.log(images)
-     } catch (error) {
-       toast.error('Error fetching images:', error);
+      this.setState({
+         images,
+       });
      }
-   };
-
-
-  // fetchAndSetImages = async () => {
-  //   const searchQuery = this.state.query;
-  //   const nexPage = this.state.page;
-
-  //   try {
-  //     this.setState({ loading: true });
-  //     const img = await fetchImage(searchQuery, nexPage);
-  //     if (img.length) {
-  //       this.setState(prevState => ({
-  //         images: this.state.page > 1 ? [...prevState.images, ...img] : img,
-  //       }));
-       
-  //       this.setState({ loading: false });
-  //     } else {
-       
-  //       this.setState({ loading: false });
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //     this.setState({ loading: false });
-  //   }
-  // };
+   }
 
 
 
