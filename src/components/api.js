@@ -14,7 +14,10 @@ axios.defaults.baseURL = `https://pixabay.com/api/`;
         per_page: 12,
       },
     });
+    console.log(query,page);
     return response.data.hits;
   } catch (error) {
-    throw error;
+    console.log('error')
+    // throw error;
+    
 }}

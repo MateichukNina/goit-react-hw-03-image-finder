@@ -21,15 +21,43 @@ export class App extends Component {
     }
   }
 
-  fetchAndSetImages = async (query, page) => {
-    console.log('Fetch')
+   fetchAndSetImages = async (query, page) => {
+    console.log(query,page)
     try {
-      const images = await fetchImage(query, page);
-      this.setState({ images });
-    } catch (error) {
-      toast.error('Error fetching images:', error);
-    }
-  };
+       const images = await fetchImage(query, page);
+      this.setState({images});
+      console.log(images)
+     } catch (error) {
+       toast.error('Error fetching images:', error);
+     }
+   };
+
+
+  // fetchAndSetImages = async () => {
+  //   const searchQuery = this.state.query;
+  //   const nexPage = this.state.page;
+
+  //   try {
+  //     this.setState({ loading: true });
+  //     const img = await fetchImage(searchQuery, nexPage);
+  //     if (img.length) {
+  //       this.setState(prevState => ({
+  //         images: this.state.page > 1 ? [...prevState.images, ...img] : img,
+  //       }));
+       
+  //       this.setState({ loading: false });
+  //     } else {
+       
+  //       this.setState({ loading: false });
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     this.setState({ loading: false });
+  //   }
+  // };
+
+
+
 
   changeQuery = newQuery => {
     this.setState({
@@ -40,7 +68,7 @@ export class App extends Component {
   };
 
   handleSubmit = event => {
-    console.log('submit')
+    console.log('Form submitted');
     event.preventDefault();
      if (event.target.elements.query.value === '') {
      toast.error('Please enter a valid query');

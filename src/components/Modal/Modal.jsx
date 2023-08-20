@@ -5,24 +5,24 @@ import {ImageItem} from './Modal.styled'
 
 const modalRoot = document.querySelector('#modal-root');
 
-const customStyles = {
-  content: {
-    top: '52%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    padding: '0',
-    border: 'none',
-    maxWidth: 'calc (100vw - 48px)',
+ const customStyles = {
+   content: {
+     top: '52%',
+     left: '50%',
+     right: 'auto',
+     bottom: 'auto',
+     marginRight: '-50%',
+     transform: 'translate(-50%, -50%)',
+     padding: '0',
+     border: 'none',
+     maxWidth: 'calc (100vw - 48px)',
     maxHeight: 'calc(100vh - 24px)',
-    overflow: 'none',
-  },
-  overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-  },
-};
+     overflow: 'none',
+   },
+   overlay: {
+     backgroundColor: 'rgba(0, 0, 0, 0.8)',
+   },
+ };
 
 export class ModalImage extends Component{
 state = {
@@ -60,8 +60,20 @@ componentWillUnmount(){
 // };
 
 
-openModal = () => this.setState({ modalOpen: true });
-closeModal = () => this.setState({ modalOpen: false });
+// openModal = () => this.setState({ modalOpen: true });
+// closeModal = () => this.setState({ modalOpen: false });
+
+openModal = () => {
+  console.log('Opening modal');
+  this.setState({ modalOpen: true });
+};
+
+closeModal = () => {
+  console.log('Closing modal');
+  this.setState({ modalOpen: false });
+};
+
+
 
 render(){
   const { modalOpen } = this.state;
