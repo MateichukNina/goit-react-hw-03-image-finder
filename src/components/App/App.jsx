@@ -21,14 +21,14 @@ export class App extends Component {
        prevState.query !== this.state.query ||
       prevState.page !== this.state.page
      ) {
-      const images = await fetchImage(
+      const img = await fetchImage(
          this.state.query.slice(this.state.query.indexOf('/') + 1),
          this.state.page
        );
 
-      this.setState({
-         images,
-       });
+       this.setState(prevState => ({
+        images: [...prevState.images, ...img],
+      }));
      }
    }
 
@@ -44,7 +44,6 @@ export class App extends Component {
   };
 
   handleSubmit = event => {
-    console.log('Form submitted');
     event.preventDefault();
      if (event.target.elements.query.value === '') {
      toast.error('Please enter a valid query');
@@ -59,15 +58,17 @@ export class App extends Component {
   };
 
   render() {
-    // const { images } = this.state;
+     const { images } = this.state;
     
     return (
       <Wrapper>
         <Searchbar onSubmit={this.handleSubmit} />
         <ImageGallery images={this.state.images} />
-        <Button type='button' onClick={this.handleLoadMore}>
-          Load more
-        </Button>
+        {images.length > 0 && (
+          <Button type="button" onClick={this.handleLoadMore}>
+            Load more
+          </Button>
+        )}
        <GlobalStyle/>
       </Wrapper>
     );
